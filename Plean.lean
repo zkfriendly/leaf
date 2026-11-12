@@ -29,8 +29,19 @@ structure PCS (n : Nat) where
   Commitment : Type -- the public value that represents the committed vector.
   ProverState : Type -- private data the prover keeps to produce openings.
   OpeningProof : Type -- public evidence that the verifier checks for a claim.
+
   CommitRandomness : Type
-  commit : FieldVec n → CommitRandomness → Commitment × ProverState
   OpeningRandomness : Type
-  openClaim (state : ProverState) (claim : InnerProductClaim n)
-      (randomness : OpeningRandomness) : OpeningProof
+
+  commit : FieldVec n → CommitRandomness → Commitment × ProverState
+  openClaim: ProverState × InnerProductClaim n × OpeningRandomness -> Option OpeningProof
+  verify: Commitment × InnerProductClaim n × OpeningProof -> Bool
+
+def PCS.HonestAccepts {n : Nat} (pcs : PCS n)
+    (witness weights : FieldVec n)
+    (rc : pcs.CommitRandomness) (ro : pcs.OpeningRandomness) : Prop :=
+  let (commitment, state) := pcs.commit witness rc
+  let claim := InnerProductClaim.mk weights (innerProduct weights witness)
+  match pcs.openClaim (state, claim, ro) with
+    | none => False
+    | some proof => pcs.verify (commitment, claim, proof) = true
