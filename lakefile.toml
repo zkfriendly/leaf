@@ -1,0 +1,10 @@
+name = "plean"
+defaultTargets = ["Plean"]
+
+[[require]]
+name = "CompPoly"
+git = "https://github.com/Verified-zkEVM/CompPoly"
+rev = "e28da34817c3775cfb935376acf5d416f555d64f"
+
+[[lean_lib]]
+name = "Plean"
