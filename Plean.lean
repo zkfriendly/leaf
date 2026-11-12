@@ -55,3 +55,11 @@ noncomputable def PCS.randomInputs {n : Nat} (pcs : PCS n) : PMF (pcs.CommitRand
   let rc ← pcs.commitDistribution
   let ro ← pcs.openingDistribution
   pure (rc, ro)
+
+noncomputable def PCS.completenessFailure {n : Nat} (pcs : PCS n) (witness weight : FieldVec n) :=
+  pcs.randomInputs.toOuterMeasure {coins | ¬pcs.HonestAccepts witness weight coins.1 coins.2}
+
+-- For every witness and weight vector, the honest failure probability is at most `error`
+def PCS.complete {n : Nat} (pcs : PCS n) (error : ENNReal) : Prop :=
+  ∀ witness weight : FieldVec n,
+    pcs.completenessFailure witness weight ≤ error
