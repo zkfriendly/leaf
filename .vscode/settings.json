@@ -1,0 +1,11 @@
+{
+  "leanBasicFormat.enabled": true,
+  "[lean4]": {
+    "editor.defaultFormatter": "zkfriendly.lean-basic-format",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "lean-basic-format",
+  "displayName": "Lean Basic Format",
+  "description": "Basic Lean spacing and indentation for this project.",
+  "publisher": "zkfriendly",
+  "version": "0.0.1",
+  "engines": { "vscode": "^1.90.0" },
+  "main": "./extension.js",
+  "activationEvents": ["onLanguage:lean4"],
+  "contributes": {
+    "configuration": {
+      "title": "Lean Basic Format",
+      "properties": {
+        "leanBasicFormat.enabled": {
+          "type": "boolean",
+          "default": false,
+          "scope": "resource",
+          "description": "Enable basic Lean formatting in this workspace, including delayed autosaves."
+        }
+      }
+    }
+  }
+}
