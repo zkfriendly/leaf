@@ -1,5 +1,6 @@
 {
   "leanBasicFormat.enabled": true,
+  "leanBasicFormat.maxLineLength": 120,
   "[lean4]": {
     "editor.defaultFormatter": "zkfriendly.lean-basic-format",
     "editor.formatOnSave": true,

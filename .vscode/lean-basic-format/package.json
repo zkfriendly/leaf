@@ -11,6 +11,13 @@
     "configuration": {
       "title": "Lean Basic Format",
       "properties": {
+        "leanBasicFormat.maxLineLength": {
+          "type": "integer",
+          "default": 120,
+          "minimum": 40,
+          "scope": "resource",
+          "description": "Target line width for declarations and type signatures. Preserve comments, literals, proof bodies, and indivisible binders."
+        },
         "leanBasicFormat.enabled": {
           "type": "boolean",
           "default": false,
