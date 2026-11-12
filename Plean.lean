@@ -10,3 +10,17 @@ abbrev FieldVec (n : Nat) := Fin n -> F
 
 def innerProduct {n: Nat} (a b: FieldVec n) : F :=
     ∑i, a i * b i
+
+-- the claim will say: "The inner product of the committed vector and these weights equals this value."
+structure InnerProductClaim (n: Nat) where
+    weights: FieldVec n
+    value: F
+#check InnerProductClaim 3
+
+
+def InnerProductClaim.Holds {n: Nat}
+    (witness: FieldVec n) (claim: InnerProductClaim n) : Prop :=
+        claim.value = innerProduct witness claim.weights
+
+theorem computedClaim_holds {n: Nat} (witness weights: FieldVec n) :
+    (InnerProductClaim.mk weights (innerProduct witness weights)).Holds witness := by rfl
