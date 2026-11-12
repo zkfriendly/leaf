@@ -17,10 +17,20 @@ structure InnerProductClaim (n: Nat) where
     value: F
 #check InnerProductClaim 3
 
-
 def InnerProductClaim.Holds {n: Nat}
     (witness: FieldVec n) (claim: InnerProductClaim n) : Prop :=
         claim.value = innerProduct witness claim.weights
 
 theorem computedClaim_holds {n: Nat} (witness weights: FieldVec n) :
     (InnerProductClaim.mk weights (innerProduct witness weights)).Holds witness := by rfl
+
+-- PCS
+structure PCS (n : Nat) where
+  Commitment : Type -- the public value that represents the committed vector.
+  ProverState : Type -- private data the prover keeps to produce openings.
+  OpeningProof : Type -- public evidence that the verifier checks for a claim.
+  CommitRandomness : Type
+  commit : FieldVec n → CommitRandomness → Commitment × ProverState
+  OpeningRandomness : Type
+  openClaim (state : ProverState) (claim : InnerProductClaim n)
+      (randomness : OpeningRandomness) : OpeningProof
